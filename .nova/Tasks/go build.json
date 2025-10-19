@@ -1,0 +1,9 @@
+{
+  "actions" : {
+    "build" : {
+      "enabled" : true,
+      "script" : "#! \/bin\/bash\n\ngo build"
+    }
+  },
+  "openLogOnRun" : "fail"
+}
