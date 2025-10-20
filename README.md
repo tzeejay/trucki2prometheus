@@ -1,10 +1,10 @@
 ## trucki2prometheus
-Pure Go(-lang) prometheus exporter for the Lumentree inverter feat. Trucki stick enabling easy activity & energy production monitoring in Grafana of your nulleinspeisung operations.  
-The only non-stdlib dependencies are the Go Prometheus client SDKs, no other import should be required to operate this tool making it very easy to maintain, compile and transpile to various platforms
+Pure Go(-lang) prometheus exporter for the Lumentree inverter feat. Trucki T2SG (Trucki2Sun Gateway) stick enabling easy state & energy production monitoring in Grafana of your grid-tied solar systems' zero-export-control (nulleinspeisung) operations.  
+The only non-go-stdlib dependencies are the Go Prometheus client SDKs, no other import should be required to operate this tool making it very easy to maintain, compile and transpile to various platforms
 
 ### What problem am I trying to solve
-The Trucki stick comes with MQTT tooling built in, though as I don't have a MQTT deployment and don't see myself using MQTT ever this was useless to me. One possible solution to my desire to record & monitor what the Trucki stick is doing would have been to run some kind of MQTT broker in my network as well as a MQTT to Prometheus exporter/bridge.  
-Following down this path would have prevented this project from being created in the first place but as I already said I see no value in setting up MQTT-anything in my life, this would have been a lot of overhead and additional complexity that I did not want to introduce which is why I wrote this little Go tool instead
+The Trucki stick comes with MQTT tooling built in, though as I don't have a MQTT deployment and don't see myself using MQTT ever, this capability did not solve my problem, desire really, to monitor everything happening on the inverter side of the system. One possible solution to my desire to record & monitor what the Trucki stick is doing would have been to run some kind of MQTT broker in my network as well as a MQTT to Prometheus exporter/bridge.  
+Following down this path would have prevented this project from being created in the first place but as I already said I see no value in setting up MQTT-anything in my life, this would have been a lot of overhead and additional complexity that I did not want to introduce which is why I wrote this little Go tool instead. I hope it helps you as well :)
 
 
 ## ¡Unknown values! Please help
@@ -44,4 +44,3 @@ Restart=on-failure
 [Install]
 WantedBy=default.target
 ```
-
