@@ -86,9 +86,6 @@ func main() {
 type truckiMetrics struct {
 	VoltageGrid					float64	`json:"VGRID"`
 	VoltageBattery 				float64	`json:"VBAT"`
-	//
-	// NOT SURE
-	// possibly what output is targeted
 	SetACPower 					int64	`json:"SETACPOWER"` 
 	Temperature 				int64	`json:"TEMP"`
 	PowerLimit 					int64	`json:"POWERLIMIT"`
@@ -100,13 +97,10 @@ type truckiMetrics struct {
 	Sun3RoundTripInt			int64
 	Sun3Setpoint 				int64	`json:"SUN3SETPOINT"`
 	Sun3PowerLimit 				int64	`json:"SUN3POWERLIMIT"`
-	MeterReadout 				int64	`json:"METERREADOUT"` // how long in ms does it take to talk to the power meter in the fuse box
-	//
-	// NOT SURE
-	// in kWh ?
+	MeterReadout 				int64	`json:"METERREADOUT"`
 	DayEnergy 					float64	`json:"DAYENERGY"`
-	TotalEnergy 				float64	`json:"TOTALENERGY"` // in kWh
-	MeterDayEnergy 				float64	`json:"METERDAYENERGY"` // in kWh
+	TotalEnergy 				float64	`json:"TOTALENERGY"`
+	MeterDayEnergy 				float64	`json:"METERDAYENERGY"`
 	ACPower 					string	`json:"ACPOWER"`
 	ACPowerFloat				float64
 	ACPowerSun2					string	`json:"ACPOWERSUN2"`
