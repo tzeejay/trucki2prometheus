@@ -5,12 +5,14 @@ import (
 	"io"
 	"fmt"
 	"flag"
+	"maps"
 	"time"
 	"runtime"
 	"strings"
 	"strconv"
 	"net/http"
 	"encoding/json"
+	"net/http/httptest"
 	
 	"github.com/prometheus/client_golang/prometheus/promhttp"
 )
@@ -73,8 +75,21 @@ func main() {
 		}
 	}()
 	
-	
-	http.Handle("/metrics", promhttp.HandlerFor(registry, promhttp.HandlerOpts{Registry: registry}))
+	http.Handle("/metrics", http.HandlerFunc(func(response http.ResponseWriter, request *http.Request) {
+		rec := httptest.NewRecorder()
+		promhttp.HandlerFor(registry, promhttp.HandlerOpts{Registry: registry}).ServeHTTP(rec, request)
+		fmt.Printf("%s %s -> %d\n", request.Method, request.URL.Path, rec.Code)
+		
+		// Copy all the response headers back into the original response
+		maps.Copy(response.Header(), rec.Header())
+		
+		// Write the HTTP response status code back into the original response 
+		response.WriteHeader(rec.Code)
+		
+		// Write the HTTP response body back into the original response
+		response.Write(rec.Body.Bytes())
+		
+	}))
 	
 	fmt.Printf("Starting trucki2prometheus exporter on :%s\n", listenPort)
 	if listenErr := http.ListenAndServe(":"+listenPort, nil); listenErr != nil {
