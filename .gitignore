@@ -1,2 +1,4 @@
 .DS_Store
 trucki2prometheus
+trucki2prometheus-amd64.tar.gz
+trucki2prometheus-arm64.tar.gz
