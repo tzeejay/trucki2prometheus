@@ -42,47 +42,47 @@ func registerPrometheusMetrics() *prometheus.Registry {
 	metrics = &promMetrics {
 		voltageGrid: prometheus.NewGauge(prometheus.GaugeOpts{
 			Name: "trucki_voltage_grid",
-			Help: "AC crid voltage measured by the Trucki stick",
+			Help: "AC grid voltage (V) measured by the inverter",
 		}),
 		voltageBattery: prometheus.NewGauge(prometheus.GaugeOpts {
 			Name: "trucki_voltage_battery",
-			Help: "DC battery voltage measured by the Trucki stick",
+			Help: "DC battery voltage (V) measured by the inverter",
 		}),
 		setACPower: prometheus.NewGauge(prometheus.GaugeOpts{
-			Name: "notsure_trucki_set_ac_power",
-			Help: "",
+			Name: "trucki_set_ac_power",
+			Help: "AC power output target in watts (W) set by Trucki stick",
 		}),
 		temperature: prometheus.NewGauge(prometheus.GaugeOpts {
-			Name: "trucki_temperature",
-			Help: "Temperature of the inverter in celcius (C) reported to the Trucki stick",
+			Name: "trucki_inverter_temperature",
+			Help: "Temperature of the inverter in celcius (°C)",
 		}),
 		powerLimit: prometheus.NewGauge(prometheus.GaugeOpts{
 			Name: "trucki_power_limit",
-			Help: "Inverter AC output power limit set by Trucki stick",
+			Help: "Inverter AC output power limit in watts (W) set by Trucki stick",
 		}),
 		sun2RoundTrip: prometheus.NewGauge(prometheus.GaugeOpts {
 			Name: "trucki_sun_2_round_trip",
-			Help: "Round trip time for HTTP request to sun2 device in milliseconds (ms)",
+			Help: "Round trip time for HTTP request to second Lumentree sun2 inverter in milliseconds (ms)",
 		}),
 		sun2SetPoint: prometheus.NewGauge(prometheus.GaugeOpts{
 			Name: "trucki_sun_2_set_point",
-			Help: "Sun2 set point in watts (W)",
+			Help: "Set point in watts (W) to grid for second Lumentree sun2 inverter",
 		}),
 		sun2PowerLimit: prometheus.NewGauge(prometheus.GaugeOpts {
 			Name: "trucki_sun_2_power_limit",
-			Help: "Sun2 power limit in watts (W)",
+			Help: "Max power limit in watts (W) for second Lumentree sun2 inverter",
 		}),
 		sun3RoundTrip: prometheus.NewGauge(prometheus.GaugeOpts {
 			Name: "trucki_sun_3_round_trip",
-			Help: "Round trip time for HTTP request to sun3 device in milliseconds (ms)",
+			Help: "Round trip time for HTTP request to third Lumentree sun3 inverter in milliseconds (ms",
 		}),
 		sun3SetPoint: prometheus.NewGauge(prometheus.GaugeOpts{
 			Name: "trucki_sun_3_set_point",
-			Help: "Sun3 set point in watts (W)",
+			Help: "Set point in watts (W) to grid for third Lumentree sun3 inverter",
 		}),
 		sun3PowerLimit: prometheus.NewGauge(prometheus.GaugeOpts {
 			Name: "trucki_sun_3_power_limit",
-			Help: "Sun3 power limit in watts (W)",
+			Help: "Max power limit in watts (W) for third Lumentree sun3 inverter",
 		}),
 		powerMeterReadout: prometheus.NewGauge(prometheus.GaugeOpts {
 			Name: "trucki_power_meter_readout",
@@ -90,43 +90,44 @@ func registerPrometheusMetrics() *prometheus.Registry {
 		}),
 		dayEnergyOutput: prometheus.NewGauge(prometheus.GaugeOpts{
 			Name: "trucki_day_energy_grid_output",
+			// for date borders or over the last 24 hours?
 			//Help: "Calculated energy output to the grid in kilowatthours (kWh)",
 			Help: "",
 		}),
 		totalEnergyOutput: prometheus.NewGauge(prometheus.GaugeOpts {
 			Name: "trucki_total_energy_grid_output",
-			// total as is total total or as in total as in since last reboot
+			// total as is total total or as in total as in since last reboot?
 			// Help: "Total calculated energy output to the grid in kilowatthours (kWh)",
 			Help: "",
 		}),
 		powerMeterDayEnergy: prometheus.NewGauge(prometheus.GaugeOpts{
 			Name: "trucki_power_meter_day_energy",
+			// day as in date borders or over the last 24 hours?
 			Help: "",
 		}),
 		inverterACPowerOutput: prometheus.NewGauge(prometheus.GaugeOpts {
-			Name: "notsure_trucki_inverter_ac_power_output",
-			// Help: "AC power output to the grid by the inverter",
-			Help: "",
+			Name: "trucki_inverter_ac_power_output",
+			Help: "AC power output to the grid by the inverter",
 		}),
 		sun2ACPowerOutput: prometheus.NewGauge(prometheus.GaugeOpts{
-			Name: "notsure_trucki_sun_2_ac_power_output",
-			Help: "",
+			Name: "trucki_sun_2_ac_power_output",
+			Help: "AC power output by second Lumentree sun2 inverter in watts (W)",
 		}),
 		sun3ACPowerOutput: prometheus.NewGauge(prometheus.GaugeOpts {
-			Name: "notsure_trucki_sun_3_ac_power_output",
-			Help: "",
+			Name: "trucki_sun_3_ac_power_output",
+			Help: "AC power output by second Lumentree sun3 inverter in watts (W)",
 		}),
 		zeroExportControlPower: prometheus.NewGauge(prometheus.GaugeOpts{
 			Name: "trucki_zero_export_control_power",
-			Help: "Calculated zero export power output to grid target set by Trucki in watts (W)",
+			Help: "Calculated zero-export-power-control output power calculated by Trucki in watts (W)",
 		}),
 		powerMeterPower: prometheus.NewGauge(prometheus.GaugeOpts {
 			Name: "trucki_power_meter_power",
-			Help: "Current power consumption currently reported by power meter in watts (W)",
+			Help: "Power consumption measured by power meter in watts (W)",
 		}),
 		wifiState: prometheus.NewGauge(prometheus.GaugeOpts {
 			Name: "trucki_wifi_state",
-			Help: "WiFi state of the Trucki stick",
+			Help: "WiFi state of the Trucki stick. Possible values are 0. 'Disconnected'; 1. 'Connected'",
 		}),
 		wifiRSSI: prometheus.NewGauge(prometheus.GaugeOpts {
 			Name: "trucki_wifi_rssi",
