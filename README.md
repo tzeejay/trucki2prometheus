@@ -7,6 +7,15 @@ The Trucki stick comes with MQTT tooling built in, though as I don't have a MQTT
 Following down this path would have prevented this project from being created in the first place but as I already said I see no value in setting up MQTT-anything in my life, this would have been a lot of overhead and additional complexity that I did not want to introduce which is why I wrote this little Go tool instead. I hope it helps you as well :)
 
 
+### Usage
+The command accepts the following flags to customize it's behavior
+- `-p` the HTTP port this exporter should listen on (default: 8080) eg. `-p 9090`
+- `-t` IP address or hostname (and potentially port if required) of the Trucki stick (no default; required!) eg. `-t 192.168.178.59` or `-t 192.168.178.59:8081`
+- `-i` scrape interval in seconds (default: 5) eg. `-i 30`
+
+`./trucki2prometheus -p 8080 -t 192.168.178.59 -i 25`
+
+
 ## ¡Unknown values! Please help
 There are a handful of values that I am not yet sure how to export/translate/document properly. If you have any of these set due to leveraging a different configuration of devices please open a new issue and include what the values mean in your PV-system's context or how they are used so that the Prometheus help text can be phrased accordingly 
 
