@@ -16,29 +16,13 @@ The command accepts the following flags to customize it's behavior
 `./trucki2prometheus -p 8080 -t 192.168.178.59 -i 25`
 
 
-## ¡Unknown values! Please help
-There are a handful of values that I am not yet sure how to export/translate/document properly. If you have any of these set due to leveraging a different configuration of devices please open a new issue and include what the values mean in your PV-system's context or how they are used so that the Prometheus help text can be phrased accordingly 
-
-
-### Currently unknown JSON values
-```
-- SUN2ROUNDTRIP <- value in the Trucki interface only shows a number and a 'ms' next to it but not as part of the same element. Is this always going to be an int formatted as a string?
-- SUN3ROUNDTRIP <- value in the Trucki interface only shows a number and a 'ms' next to it but not as part of the same element. Is this always going to be an int formatted as a string?
-- DAYENERGY <- day as in date borders or over the last 24 hours?
-- TOTALENERGY <- total as in persistent since start of use (last factory reset) or total as in since last reboot?
-- METERDAYENERGY <- day as in date borders or over the last 24 hours?
-- ZEPCPOWER <- how is this value calculated?
-- WIFI <- are there more states than 'Connected' and possibly 'DISCONNECTED'? Are those two correct at all?
-- RSSI <- do string values here follow the common RSSI string descriptions? Are there other possible values?
-```
-
 ## Build
-A functional Go(-lang) toolchain needs to be a setup on your computer in order to compile this project. A release build (eg. for an ARM based host like a Raspberry Pi) should be created with
+A functional Go(-lang) toolchain needs to be a setup on your computer in order to compile this project. A release build (eg. for an ARM based host like a Raspberry Pi) should be created with eg.
 
 `GOOS=linux GOARCH=arm go build -a -v -o trucki2prometheus -ldflags "-X main.t2PromVersion=$(git rev-parse --short HEAD) -X main.buildDate=$(date +"%Y-%m-%dT%H:%M:%S")"`
 
 ## Automated operations
-I currently run the exporter as a systemd unit on a Linux based ARM host. It possible to set this up by placing the following configuration into `/etc/systemd/system/trucki2prometheus.service`
+I currently run the exporter as a `systemd` unit on a Linux based ARM host (Raspberry Pi 5). It possible to set this up by placing the following configuration into `/etc/systemd/system/trucki2prometheus.service`
 ```
 [Unit]
 Description=Trucki stick to Prometheus exporter
