@@ -222,21 +222,46 @@ func scrapeTrucki() (*truckiMetrics, error) {
 		
 	} else if truckiMetrics.WiFiState == "CONNECTED" {
 		truckiMetrics.WiFiStateInt = 1
-	}
 	
-	if truckiMetrics.RSSI == "Unusable" {
+	}  else if truckiMetrics.WiFiState == "not set" {
+		truckiMetrics.WiFiStateInt = 2
+	
+	}  else if truckiMetrics.WiFiState == "CONNECTING..." {
+		truckiMetrics.WiFiStateInt = 3
+	
+	}  else if truckiMetrics.WiFiState == "NO SHIELD" {
+		truckiMetrics.WiFiStateInt = 4
+	
+	}  else if truckiMetrics.WiFiState == "IDLE STATUS" {
+		truckiMetrics.WiFiStateInt = 5
+	
+	}  else if truckiMetrics.WiFiState == "CONNECT FAILED" {
+		truckiMetrics.WiFiStateInt = 6
+	
+	}  else if truckiMetrics.WiFiState == "NO SSID AVAIL" {
+		truckiMetrics.WiFiStateInt = 7
+	
+	}  else if truckiMetrics.WiFiState == "SCAN COMPLETED" {
+		truckiMetrics.WiFiStateInt = 8
+	
+	}  else if truckiMetrics.WiFiState == "CONNECTION_LOST" {
+		truckiMetrics.WiFiStateInt = 9
+	} 
+	
+	
+	if truckiMetrics.RSSI == "Bad" {
 		truckiMetrics.RSSIStateInt = 0
 	
-	} else if truckiMetrics.RSSI == "Not good" || truckiMetrics.RSSI == "Very Good" {
+	} else if truckiMetrics.RSSI == "Not good"{
 		truckiMetrics.RSSIStateInt = 1
 	
 	} else if truckiMetrics.RSSI == "Okay" {
 		truckiMetrics.RSSIStateInt = 2
 	
-	} else if truckiMetrics.RSSI == "Very good" || truckiMetrics.RSSI == "Very Good" {
+	} else if truckiMetrics.RSSI == "Fairly good" {
 		truckiMetrics.RSSIStateInt = 3
 	
-	} else if truckiMetrics.RSSI == "Amazing" {
+	} else if truckiMetrics.RSSI == "Very good" {
 		truckiMetrics.RSSIStateInt = 4
 	}
 	
