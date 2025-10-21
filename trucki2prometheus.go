@@ -105,11 +105,11 @@ type truckiMetrics struct {
 	Temperature 				int64	`json:"TEMP"`
 	PowerLimit 					int64	`json:"POWERLIMIT"`
 	Sun2RoundTrip 				string	`json:"SUN2ROUNDTRIP"`
-	Sun2RoundTripInt			int64
+	Sun2RoundTripInt			int
 	Sun2Setpoint 				int64	`json:"SUN2SETPOINT"`
 	Sun2PowerLimit 				int64	`json:"SUN2POWERLIMIT"`
 	Sun3RoundTrip 				string	`json:"SUN3ROUNDTRIP"`
-	Sun3RoundTripInt			int64
+	Sun3RoundTripInt			int
 	Sun3Setpoint 				int64	`json:"SUN3SETPOINT"`
 	Sun3PowerLimit 				int64	`json:"SUN3POWERLIMIT"`
 	MeterReadout 				int64	`json:"METERREADOUT"`
@@ -217,9 +217,10 @@ func scrapeTrucki() (*truckiMetrics, error) {
 		truckiMetrics.ZeroExportControlPowerFloat = meterPowerFloat
 	}
 	
+	
 	if truckiMetrics.WiFiState == "DISCONNECTED" {
 		truckiMetrics.WiFiStateInt = 0
-		
+	
 	} else if truckiMetrics.WiFiState == "CONNECTED" {
 		truckiMetrics.WiFiStateInt = 1
 	
@@ -252,7 +253,7 @@ func scrapeTrucki() (*truckiMetrics, error) {
 	if truckiMetrics.RSSI == "Bad" {
 		truckiMetrics.RSSIStateInt = 0
 	
-	} else if truckiMetrics.RSSI == "Not good"{
+	} else if truckiMetrics.RSSI == "Not good" {
 		truckiMetrics.RSSIStateInt = 1
 	
 	} else if truckiMetrics.RSSI == "Okay" {
@@ -265,16 +266,40 @@ func scrapeTrucki() (*truckiMetrics, error) {
 		truckiMetrics.RSSIStateInt = 4
 	}
 	
+	sun2RoundTrip := strings.ReplaceAll(truckiMetrics.Sun2RoundTrip, "ms", "")
+	sun2RoundTrip = strings.ReplaceAll(sun2RoundTrip, " ", "")
+	sun2RoundTripInt, sun2RoundTripErr := strconv.Atoi(sun2RoundTrip)
+	if sun2RoundTripErr != nil {
+		fmt.Println("Failed to extract number from JSON key 'SUN2ROUNDTRIP':", sun2RoundTripErr)
+		truckiMetrics.Sun2RoundTripInt = -1
+	
+	} else {
+		truckiMetrics.Sun2RoundTripInt = sun2RoundTripInt
+	}
+	
+	sun3RounTrip := strings.ReplaceAll(truckiMetrics.Sun3RoundTrip, "ms", "")
+	sun3RounTrip = strings.ReplaceAll(sun3RounTrip, " ", "")
+	sun3RoundTripInt, sun3RoundTripErr := strconv.Atoi(sun3RounTrip)
+	if sun3RoundTripErr != nil {
+		fmt.Println("Failed to extract number from JSON key 'SUN3ROUNDTRIP':", sun3RoundTripErr)
+		truckiMetrics.Sun3RoundTripInt = -1
+	
+	} else {
+		truckiMetrics.Sun3RoundTripInt = sun3RoundTripInt
+	}
+	
+	
+	
 	if metrics != nil {
 		metrics.voltageGrid.Set(truckiMetrics.VoltageGrid)
 		metrics.voltageBattery.Set(truckiMetrics.VoltageBattery)
 		metrics.setACPower.Set(float64(truckiMetrics.SetACPower))
 		metrics.temperature.Set(float64(truckiMetrics.Temperature))
 		metrics.powerLimit.Set(float64(truckiMetrics.PowerLimit))
-		// metrics.sun2RoundTrip.Set(float64(truckiMetrics.Sun2RoundTripInt))
+		metrics.sun2RoundTrip.Set(float64(truckiMetrics.Sun2RoundTripInt))
 		metrics.sun2SetPoint.Set(float64(truckiMetrics.Sun2Setpoint))
 		metrics.sun2PowerLimit.Set(float64(truckiMetrics.Sun2PowerLimit))
-		// metrics.sun3RoundTrip.Set(float64(truckiMetrics.Sun3RoundTripInt))
+		metrics.sun3RoundTrip.Set(float64(truckiMetrics.Sun3RoundTripInt))
 		metrics.sun3SetPoint.Set(float64(truckiMetrics.Sun3Setpoint))
 		metrics.sun3PowerLimit.Set(float64(truckiMetrics.Sun3PowerLimit))
 		metrics.powerMeterReadout.Set(float64(truckiMetrics.MeterReadout))
