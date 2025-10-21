@@ -22,12 +22,12 @@ There are a handful of values that I am not yet sure how to export/translate/doc
 
 ### Currently unknown JSON values
 ```
-- SUN2ROUNDTRIP <- this should be an int to me. Why is this a string?
-- SUN3ROUNDTRIP <- this should be an int to me. Why is this a string?
+- SUN2ROUNDTRIP <- value in the Trucki interface only shows a number and a 'ms' next to it but not as part of the same element. Is this always going to be an int formatted as a string?
+- SUN3ROUNDTRIP <- value in the Trucki interface only shows a number and a 'ms' next to it but not as part of the same element. Is this always going to be an int formatted as a string?
 - DAYENERGY <- day as in date borders or over the last 24 hours?
 - TOTALENERGY <- total as in persistent since start of use (last factory reset) or total as in since last reboot?
 - METERDAYENERGY <- day as in date borders or over the last 24 hours?
-- ZEPCPOWER <- how is this value calculated exactly?
+- ZEPCPOWER <- how is this value calculated?
 - WIFI <- are there more states than 'Connected' and possibly 'DISCONNECTED'? Are those two correct at all?
 - RSSI <- do string values here follow the common RSSI string descriptions? Are there other possible values?
 ```
